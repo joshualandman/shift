@@ -14,7 +14,8 @@ public class CameraFollow : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		Vector3 playerPos = player.transform.position;
-		playerPos.z -= 10;
+		playerPos.x += 4;
+		playerPos.z = transform.position.z;
 
 		transform.position = Vector3.SmoothDamp(transform.position,playerPos,ref velocity,smoothtime);
 	}
