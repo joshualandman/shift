@@ -61,4 +61,46 @@ public class CharacterControler : MonoBehaviour {
 		theScale.x *=-1;
 		transform.localScale = theScale;
 	}
+
+	public void Detected()
+	{
+		GameObject.Find ("Character/Mark").SetActive(true);
+	}
+
+	public void Removed()
+	{
+		GameObject.Find ("Character/Mark").SetActive(false);
+	}
+
+
+	/// <summary>
+	/// Trigger collider
+	/// </summary>
+	void OnTriggerEnter2D(Collider2D col)
+	{
+		Debug.Log ("Collision Enter");
+		string s = col.gameObject;
+		if(s.name == "box")
+		{
+			GameObject.Find ("Character/Mark").GetComponent<SpriteRenderer>().enabled = true;
+			if(Input.GetKeyDown(keycode.E))
+			{
+				//cycle the box properties (type)
+				//call s.cycle
+
+			}
+		}
+
+	}
+	
+	void OnTriggerExit2D(Collider2D col)
+	{
+		Debug.Log ("Collision Exit");
+		string s = col.gameObject.name;
+		if(s == "box")
+		{
+			GameObject.Find ("Character/Mark").GetComponent<SpriteRenderer>().enabled = false;
+		}
+	}
+
 }

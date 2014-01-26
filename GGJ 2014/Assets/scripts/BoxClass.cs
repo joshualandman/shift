@@ -36,14 +36,25 @@ public class BoxClass : MonoBehaviour {
 	void OnCollisionEnter2D(Collision2D col)
 	{
 		//Debug.Log ("Collision Enter");
-		switch(type)
+		if(col.gameObject.name == "Character")
 		{
-			case "spring":
-				Spring(col);
-				break;
-			default:
-				break;
+			switch(type)
+			{
+				case "spring":
+					Spring(col);
+					break;
+				default:
+					break;
+			}
 		}
+
+
+	}
+
+	//cycles object
+	public void cycle()
+	{
+		//change the type of the object
 	}
 
 	//update
@@ -56,14 +67,11 @@ public class BoxClass : MonoBehaviour {
 	void Spring(Collision2D col)
 	{
 		//Debug.Log ("Spring Collision");
-		if(col.gameObject.name == "Character")
+		CharacterControler player = col.gameObject.GetComponent<CharacterControler>();
+		if(player.grounded)
 		{
-			CharacterControler player = col.gameObject.GetComponent<CharacterControler>();
-			if(player.grounded)
-			{
-				player.anim.SetBool("Ground",false);
-				col.rigidbody.AddForce(new Vector2(0,springForce));
-			}
+			player.anim.SetBool("Ground",false);
+			col.rigidbody.AddForce(new Vector2(0,springForce));
 		}
 	}
 

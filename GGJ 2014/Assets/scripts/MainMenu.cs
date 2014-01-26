@@ -4,28 +4,22 @@ using System.Collections.Generic;
 
 public class MainMenu : MonoBehaviour {
 
-	Texture backgroundTexture;
-	public Texture CreditsTexture;
-	public Texture MainMenuTexture;
-	public Texture IconTexture;
-	public List<Vector2> Positions;
-	public float guiPlacementX;
-	public float guiPlacementY;
-	Vector2 Current;
+	public GameObject Icon;
+	public List<Vector3> Positions;
+
 	int cur = 0;
 
 	void Start()
 	{
-		backgroundTexture = MainMenuTexture;
-		Positions = new List<Vector2>();
-		Positions.Add(new Vector2(600,200));
-		Positions.Add(new Vector2(600,420));
-		Positions.Add(new Vector2(600,600));
-		Positions.Add(new Vector2(600,695));
-		Current = Positions[cur];
+		Icon = GameObject.Find ("Mark");
+		Positions = new List<Vector3>();
+		Positions.Add(new Vector3(-1.8f,1,0f));
+		Positions.Add(new Vector3(-1.8f,-0.42f,0.0f));
+		Positions.Add(new Vector3(-1.8f,-1.77f,0.0f));
+		Positions.Add(new Vector3(-1.8f,-2.7f,0.0f));
 	}
 	
-	void OnGUI()
+	/*void OnGUI()
 	{
 		//draws texture
 		GUI.DrawTexture(new Rect(0,0,Screen.width,Screen.height), backgroundTexture);
@@ -43,10 +37,14 @@ public class MainMenu : MonoBehaviour {
 		//	//Debug.Log("Clicked Options");
 		//}
 		Current = Positions[cur];
-	}
+	}*/
 	void Update()
 	{
-		if(backgroundTexture == MainMenuTexture)
+
+		Icon.transform.position = Positions[cur];
+
+
+		if(GameObject.Find ("Main Menu").transform.position.z == 0)
 		{
 			if(Input.GetKeyDown(KeyCode.UpArrow))
 			{
@@ -72,15 +70,16 @@ public class MainMenu : MonoBehaviour {
 			}
 		}
 			
-		if(Input.GetKeyDown(KeyCode.Space))
+		if(Input.GetKeyDown(KeyCode.Return))
 		{
 			if( cur == 0)
 			{
-				Application.LoadLevel("Level 1");
+				Application.LoadLevel(1);
 			}
 			else if( cur == 1)
 			{
-				backgroundTexture = CreditsTexture;
+				Vector3 hide = new Vector3(0,0,2);
+				GameObject.Find ("Main Menu").transform.position = hide;
 				cur = 3;
 			}
 			else if ( cur == 2)
@@ -89,7 +88,8 @@ public class MainMenu : MonoBehaviour {
 			}
 			else if (cur == 3)
 			{
-				backgroundTexture = MainMenuTexture;
+				Vector3 show = new Vector3(0,0,0);
+				GameObject.Find ("Main Menu").transform.position = show;
 				cur = 1;
 			}
 		}
