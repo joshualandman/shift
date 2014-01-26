@@ -62,6 +62,11 @@ public class CharacterControler : MonoBehaviour {
 			anim.SetBool("Ground",false);
 			rigidbody2D.AddForce(new Vector2(0, jumpForce));
 		}
+
+		if(transform.position.y < -50)
+		{
+			transform.position = GameObject.Find("start").transform.position;
+		}
 	}
 
 	void Flip()
