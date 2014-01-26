@@ -13,14 +13,20 @@ public class EndLevel : MonoBehaviour {
 	
 	}
 
-	void onCollision2DEnter(Collision2D col)
+	void OnCollisionEnter2D(Collision2D col)
 	{
+		Debug.Log ("end level collision");
 		if(col.gameObject.name == "Character")
 		{
-			Debug.Log ("here");
 			if(Application.loadedLevel != Application.levelCount-1)
 			{
+				Debug.Log ("Next level");
 				Application.LoadLevel(Application.loadedLevel+1);
+			}
+			else
+			{
+				Debug.Log ("end game");
+				Application.LoadLevel (0);
 			}
 		}
 	}

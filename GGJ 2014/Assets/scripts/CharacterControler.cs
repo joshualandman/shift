@@ -91,15 +91,14 @@ public class CharacterControler : MonoBehaviour {
 	/// </summary>
 	void OnTriggerEnter2D(Collider2D col)
 	{
-		Debug.Log ("Collision Enter");
 		GameObject s = col.gameObject;
+		Debug.Log ("Trigger Collision with " + s.name);
 		if(s.name == "box")
 		{
 			GameObject.Find ("Character/Mark").GetComponent<SpriteRenderer>().enabled = true;
 			if(Input.GetKeyDown(KeyCode.Space))
 			{
 				Debug.Log("Change");
-
 			}
 		}
 

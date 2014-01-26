@@ -4,13 +4,15 @@ using System.Collections.Generic;
 
 public class MainMenu : MonoBehaviour {
 
-	public GameObject Icon;
+
+	private GameObject Icon;
 	public List<Vector3> Positions;
 
-	int cur = 0;
+	public int cur = 0;
 
 	void Start()
 	{
+
 		Icon = GameObject.Find ("Mark");
 		Positions = new List<Vector3>();
 		Positions.Add(new Vector3(-1.8f,1,0f));
@@ -94,5 +96,4 @@ public class MainMenu : MonoBehaviour {
 			}
 		}
 	}
-
 }
