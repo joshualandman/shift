@@ -5,13 +5,15 @@ public class BoxClass : MonoBehaviour {
 
 	public string type;
 
-
+	public bool isMusicOnQuestionMark;
 
 	public float springForce = 200;
 
+	public AudioClip sound;
+
 	// Use this for initialization
 	void Start () {
-	
+		isMusicOnQuestionMark = false;
 	}
 	
 	// Update is called once per frame
@@ -22,6 +24,9 @@ public class BoxClass : MonoBehaviour {
 			case "spring":
 				Spring();
 				break;
+			case "musicbox":
+				MusicBox(isMusicOnQuestionMark);
+				break;
 			default:
 				break;
 		}
@@ -30,7 +35,7 @@ public class BoxClass : MonoBehaviour {
 
 	void OnCollisionEnter2D(Collision2D col)
 	{
-		Debug.Log ("Collision Enter");
+		//Debug.Log ("Collision Enter");
 		switch(type)
 		{
 			case "spring":
@@ -46,10 +51,11 @@ public class BoxClass : MonoBehaviour {
 	{
 
 	}
+
 	//collision
 	void Spring(Collision2D col)
 	{
-		Debug.Log ("Spring Collision");
+		//Debug.Log ("Spring Collision");
 		if(col.gameObject.name == "Character")
 		{
 			CharacterControler player = col.gameObject.GetComponent<CharacterControler>();
@@ -58,6 +64,15 @@ public class BoxClass : MonoBehaviour {
 				player.anim.SetBool("Ground",false);
 				col.rigidbody.AddForce(new Vector2(0,springForce));
 			}
+		}
+	}
+
+	void MusicBox(bool isMusicOn)
+	{
+		if(!isMusicOn)
+		{
+			isMusicOnQuestionMark = !isMusicOnQuestionMark;
+			audio.PlayOneShot(sound);
 		}
 	}
 	
