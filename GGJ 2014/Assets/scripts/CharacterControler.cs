@@ -118,7 +118,7 @@ public class CharacterControler : MonoBehaviour {
 	{
 		Debug.Log ("Collision Exit");
 		string s = col.gameObject.name;
-		if(s == "box")
+		if(s == "box" || s == "move")
 		{
 			GameObject.Find ("Character/Mark").GetComponent<SpriteRenderer>().enabled = false;
 		}

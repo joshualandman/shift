@@ -15,6 +15,8 @@ public class BoxClass : MonoBehaviour {
 
 	public int current = 0;
 
+	public List<Sprite> spriteList;
+
 	// Use this for initialization
 	void Start () {
 		isMusicOnQuestionMark = false;
@@ -22,7 +24,30 @@ public class BoxClass : MonoBehaviour {
 		typeList.Add ("spring");
 		typeList.Add("musicbox");
 		typeList.Add("None");
-		type = typeList[current];
+		//type = typeList[current];
+
+
+
+		switch(type)
+		{
+		case "spring":
+			this.GetComponent<SpriteRenderer>().sprite = spriteList[0];
+			this.GetComponent<BoxCollider2D>().size = new Vector2(2,2);
+			current = 0;
+			break;
+		case "musicbox":
+			this.GetComponent<SpriteRenderer>().sprite = spriteList[1];
+			this.GetComponent<BoxCollider2D>().size = new Vector2(2,2);
+			current = 1;
+			break;
+		case "None":
+			this.GetComponent<SpriteRenderer>().sprite = spriteList[2];
+			this.GetComponent<BoxCollider2D>().size = new Vector2(6,2);
+			current = 2;
+			break;
+		default:
+			break;
+		}
 	}
 	
 	// Update is called once per frame
@@ -45,6 +70,7 @@ public class BoxClass : MonoBehaviour {
 				break;
 		}
 		//can switch to each but music doesnt go on : DJ
+
 	}
 
 	void OnCollisionEnter2D(Collision2D col)
@@ -78,6 +104,27 @@ public class BoxClass : MonoBehaviour {
 			current = 0;
 		}
 		Debug.Log (typeList[current]);
+
+		switch(current)
+		{
+		case 0:
+			this.GetComponent<SpriteRenderer>().sprite = spriteList[0];
+			this.GetComponent<BoxCollider2D>().size = new Vector2(2,2);
+			type = "spring";
+			break;
+		case 1:
+			this.GetComponent<SpriteRenderer>().sprite = spriteList[1];
+			this.GetComponent<BoxCollider2D>().size = new Vector2(2,2);
+			type = "musicbox";
+			break;
+		case 2:
+			this.GetComponent<SpriteRenderer>().sprite = spriteList[2];
+			this.GetComponent<BoxCollider2D>().size = new Vector2(6,2);
+			type = "None";
+			break;
+		default:
+			break;
+		}
 	}
 
 	//update
