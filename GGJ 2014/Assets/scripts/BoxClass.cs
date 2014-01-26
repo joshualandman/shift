@@ -1,24 +1,33 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class BoxClass : MonoBehaviour {
 
 	public string type;
 
+	List<string> typeList;
 	public bool isMusicOnQuestionMark;
 
 	public float springForce = 200;
 
 	public AudioClip sound;
 
+	public int current = 0;
+
 	// Use this for initialization
 	void Start () {
 		isMusicOnQuestionMark = false;
+		typeList = new List<string>();
+		typeList.Add ("spring");
+		typeList.Add("musicbox");
+		typeList.Add("None");
+		type = typeList[current];
 	}
 	
 	// Update is called once per frame
 	void Update () {
-	
+		type = typeList[current];
 		switch(type)
 		{
 			case "spring":
@@ -27,10 +36,13 @@ public class BoxClass : MonoBehaviour {
 			case "musicbox":
 				MusicBox(isMusicOnQuestionMark);
 				break;
+		case "None":
+			break;
+
 			default:
 				break;
 		}
-
+		//can switch to each but music doesnt go on : DJ
 	}
 
 	void OnCollisionEnter2D(Collision2D col)
@@ -54,7 +66,16 @@ public class BoxClass : MonoBehaviour {
 	//cycles object
 	public void cycle()
 	{
-		//change the type of the object
+
+		if(current !=2)
+		{
+			current ++;
+		}
+		else
+		{
+			current = 0;
+		}
+		Debug.Log (typeList[current]);
 	}
 
 	//update

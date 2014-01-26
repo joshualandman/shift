@@ -72,21 +72,33 @@ public class CharacterControler : MonoBehaviour {
 		GameObject.Find ("Character/Mark").SetActive(false);
 	}
 
-
+	void OnTriggerStay2D(Collider2D col) // need this for it to work, on start only checks at initial entry, onexit is only for when you leave, this is for while its in : DJ
+	{
+		GameObject s = col.gameObject;
+		if(s.name == "box")
+		{
+			if(Input.GetKeyDown(KeyCode.E))
+			{
+				//Debug.Log("Change");
+				//cycle the box properties (type)
+				s.gameObject.GetComponent<BoxClass>().cycle();
+				//works but the key feels tempermental sometimes it works sometimes you have to hit it twice or so : DJ
+			}
+		}
+	}
 	/// <summary>
 	/// Trigger collider
 	/// </summary>
 	void OnTriggerEnter2D(Collider2D col)
 	{
 		Debug.Log ("Collision Enter");
-		string s = col.gameObject;
+		GameObject s = col.gameObject;
 		if(s.name == "box")
 		{
 			GameObject.Find ("Character/Mark").GetComponent<SpriteRenderer>().enabled = true;
-			if(Input.GetKeyDown(keycode.E))
+			if(Input.GetKeyDown(KeyCode.Space))
 			{
-				//cycle the box properties (type)
-				//call s.cycle
+				Debug.Log("Change");
 
 			}
 		}
