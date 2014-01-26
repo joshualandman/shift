@@ -39,9 +39,9 @@ public class CharacterControler : MonoBehaviour {
 
 		rigidbody2D.velocity = new Vector2(move * maxSpeed, rigidbody2D.velocity.y);
 
-		if(move > 0 && !facingRight)
+		if(move < 0 && !facingRight)
 			Flip ();
-		else if(move < 0 && facingRight)
+		else if(move > 0 && facingRight)
 			Flip ();
 	}
 
