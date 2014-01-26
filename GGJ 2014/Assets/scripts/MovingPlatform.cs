@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class MovingPlatform : MonoBehaviour {
 
-	private float useSpeed;	
+	public float useSpeed;	
 	public float directionSpeed = 9.0f;	
 	float origY;
 	float origX;	
@@ -46,6 +46,7 @@ public class MovingPlatform : MonoBehaviour {
 					current = 0;
 					type = "Vertical";
 				}
+				changeMotion = true;
 			}
 			else if(current == 1)
 			{
@@ -89,7 +90,7 @@ public class MovingPlatform : MonoBehaviour {
 	{
 		type = typeList[current];
 
-		if(origX - transform.position.x == 0 && origY - transform.position.y == 0)
+		if(origX == transform.position.x && origY == transform.position.y)
 		{
 			if(changeMotion)
 			{

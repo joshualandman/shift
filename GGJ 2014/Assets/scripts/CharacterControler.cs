@@ -14,8 +14,13 @@ public class CharacterControler : MonoBehaviour {
 	float groundRadius = 0.50f;
 	public LayerMask ground;
 
+	//spinner on off
+	private bool spinner =false;
+	private int spinnernum =0;
+
 	//jumping
 	public float jumpForce = 0f;
+	private bool jumpable = true;
 
 
 	// Use this for initialization
@@ -28,6 +33,10 @@ public class CharacterControler : MonoBehaviour {
 	{
 		//checks if grounded
 		grounded = Physics2D.OverlapCircle(groundCheck.position, groundRadius, ground);
+		if(!grounded)
+		{
+			jumpable = true;
+		}
 		anim.SetBool ("Ground", grounded);
 
 		anim.SetFloat ("vSpeed",rigidbody2D.velocity.y);
@@ -47,8 +56,9 @@ public class CharacterControler : MonoBehaviour {
 
 	void Update()
 	{
-		if(grounded && Input.GetKeyDown(KeyCode.Space))//Input.GetAxis ("Jump") > 0)
+		if(jumpable && grounded && (Input.GetKeyDown (KeyCode.W)|| Input.GetKeyDown (KeyCode.UpArrow) ||Input.GetKeyDown(KeyCode.Space)))//Input.GetAxis ("Jump") > 0)
 		{
+			jumpable = false;
 			anim.SetBool("Ground",false);
 			rigidbody2D.AddForce(new Vector2(0, jumpForce));
 		}
@@ -85,17 +95,68 @@ public class CharacterControler : MonoBehaviour {
 				//works but the key feels tempermental sometimes it works sometimes you have to hit it twice or so : DJ
 			}
 		}
-		if(s.name == "move")
+		if(s.name == "Moving")
 		{
-			if(Input.GetKeyDown(KeyCode.E))
+			if(Input.GetKeyDown(KeyCode.E)&&spinner)
 			{
-				//Debug.Log("Change");
-				//cycle the box properties (type)
-				//s.gameObject.GetComponent<MovingPlatform>().cycle();
-				//works but the key feels tempermental sometimes it works sometimes you have to hit it twice or so : DJ
+				s.gameObject.GetComponent<MovingPlatform>().cycle (spinnernum);
+				GameObject.Find ("Character/spinner1").GetComponent<SpriteRenderer>().enabled = false;
+				GameObject.Find ("Character/spinner2").GetComponent<SpriteRenderer>().enabled = false;
+				GameObject.Find ("Character/spinner3").GetComponent<SpriteRenderer>().enabled = false;
+				spinner = false;
+			}
+			else if(Input.GetKeyDown (KeyCode.E)&&!spinner)
+			{
+
+				GameObject.Find ("Character/spinner1").GetComponent<SpriteRenderer>().enabled = true;
+				spinner = true;
+			}
+			else if(spinner&&(Input.GetKeyDown (KeyCode.Keypad1)||Input.GetKeyDown (KeyCode.Alpha1)))
+	        {
+				//rotate spinner to 0
+				GameObject.Find ("Character/spinner1").GetComponent<SpriteRenderer>().enabled = true;
+				GameObject.Find ("Character/spinner2").GetComponent<SpriteRenderer>().enabled = false;
+				GameObject.Find ("Character/spinner3").GetComponent<SpriteRenderer>().enabled = false;
+				spinnernum = 0;
+			}
+			else if(spinner&&(Input.GetKeyDown (KeyCode.Keypad2)||Input.GetKeyDown (KeyCode.Alpha2)))
+			{
+				//rotate spinner to 1
+				GameObject.Find ("Character/spinner2").GetComponent<SpriteRenderer>().enabled = true;
+				GameObject.Find ("Character/spinner1").GetComponent<SpriteRenderer>().enabled = false;
+				GameObject.Find ("Character/spinner3").GetComponent<SpriteRenderer>().enabled = false;
+				spinnernum = 1;
+			}
+			else if(spinner&&(Input.GetKeyDown (KeyCode.Keypad3)||Input.GetKeyDown (KeyCode.Alpha3)))
+			{
+				//rotate spinner to 2
+				GameObject.Find ("Character/spinner1").GetComponent<SpriteRenderer>().enabled = false;
+				GameObject.Find ("Character/spinner2").GetComponent<SpriteRenderer>().enabled = false;
+				GameObject.Find ("Character/spinner3").GetComponent<SpriteRenderer>().enabled = true;
+				spinnernum = 2;
 			}
 		}
 	}
+
+	void OnCollisionStay2D(Collision2D col)
+	{
+		if(col.gameObject.name == "Moving")
+		{
+			if(col.gameObject.GetComponent<MovingPlatform>().type == "Horizontal")
+			{
+					
+				transform.Translate(col.gameObject.GetComponent<MovingPlatform>().useSpeed*Time.deltaTime,0,0);
+			}
+			
+			else if(col.gameObject.GetComponent<MovingPlatform>().type == "Vertical")
+			{
+
+				transform.Translate(0,col.gameObject.GetComponent<MovingPlatform>().useSpeed * Time.deltaTime,0);
+				
+			}
+		}
+	}
+
 	/// <summary>
 	/// Trigger collider
 	/// </summary>
@@ -103,7 +164,7 @@ public class CharacterControler : MonoBehaviour {
 	{
 		GameObject s = col.gameObject;
 		Debug.Log ("Trigger Collision with " + s.name);
-		if(s.name == "box" || s.name == "move")
+		if(s.name == "box" || s.name == "Moving")
 		{
 			GameObject.Find ("Character/Mark").GetComponent<SpriteRenderer>().enabled = true;
 			if(Input.GetKeyDown(KeyCode.Space))
@@ -118,10 +179,11 @@ public class CharacterControler : MonoBehaviour {
 	{
 		Debug.Log ("Collision Exit");
 		string s = col.gameObject.name;
-		if(s == "box" || s == "move")
+		if(s == "box" || s == "Moving")
 		{
 			GameObject.Find ("Character/Mark").GetComponent<SpriteRenderer>().enabled = false;
 		}
+		GameObject.Find ("Character/spinner").GetComponent<SpriteRenderer>().enabled = false;
 	}
 
 }
