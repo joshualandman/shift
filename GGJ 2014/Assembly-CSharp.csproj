@@ -51,6 +51,7 @@
      <Compile Include="Assets\scripts\CharacterControler.cs" />
      <Compile Include="Assets\scripts\EndLevel.cs" />
      <Compile Include="Assets\scripts\MainMenu.cs" />
+     <Compile Include="Assets\scripts\MenuManager.cs" />
      <Compile Include="Assets\scripts\MovingPlatform.cs" />
      <Compile Include="Assets\scripts\Rotate.cs" />
      <None Include="Assets\Standard Assets\Particles\Sources\Shaders\Particle Alpha Blend (Queue +100).shader" />

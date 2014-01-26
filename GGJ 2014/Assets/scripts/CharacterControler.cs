@@ -85,6 +85,16 @@ public class CharacterControler : MonoBehaviour {
 				//works but the key feels tempermental sometimes it works sometimes you have to hit it twice or so : DJ
 			}
 		}
+		if(s.name == "move")
+		{
+			if(Input.GetKeyDown(KeyCode.E))
+			{
+				//Debug.Log("Change");
+				//cycle the box properties (type)
+				s.gameObject.GetComponent<MovingPlatform>().cycle();
+				//works but the key feels tempermental sometimes it works sometimes you have to hit it twice or so : DJ
+			}
+		}
 	}
 	/// <summary>
 	/// Trigger collider
@@ -93,7 +103,7 @@ public class CharacterControler : MonoBehaviour {
 	{
 		GameObject s = col.gameObject;
 		Debug.Log ("Trigger Collision with " + s.name);
-		if(s.name == "box")
+		if(s.name == "box" || s.name == "move")
 		{
 			GameObject.Find ("Character/Mark").GetComponent<SpriteRenderer>().enabled = true;
 			if(Input.GetKeyDown(KeyCode.Space))

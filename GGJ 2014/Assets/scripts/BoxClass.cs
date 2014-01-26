@@ -31,13 +31,15 @@ public class BoxClass : MonoBehaviour {
 		switch(type)
 		{
 			case "spring":
-				Spring();
+			Spring();
 				break;
 			case "musicbox":
+				audio.mute = false;
 				MusicBox(isMusicOnQuestionMark);
 				break;
-		case "None":
-			break;
+			case "None":
+				audio.mute = true;
+				break;
 
 			default:
 				break;
@@ -97,11 +99,11 @@ public class BoxClass : MonoBehaviour {
 	}
 
 	void MusicBox(bool isMusicOn)
-	{
+	{	
 		if(!isMusicOn)
 		{
-			isMusicOnQuestionMark = !isMusicOnQuestionMark;
 			audio.PlayOneShot(sound);
+			isMusicOnQuestionMark = !isMusicOnQuestionMark;
 		}
 	}
 	
