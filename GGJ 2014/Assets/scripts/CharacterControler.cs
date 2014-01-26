@@ -91,7 +91,7 @@ public class CharacterControler : MonoBehaviour {
 			{
 				//Debug.Log("Change");
 				//cycle the box properties (type)
-				s.gameObject.GetComponent<MovingPlatform>().cycle();
+				//s.gameObject.GetComponent<MovingPlatform>().cycle();
 				//works but the key feels tempermental sometimes it works sometimes you have to hit it twice or so : DJ
 			}
 		}

@@ -13,6 +13,7 @@ public class MovingPlatform : MonoBehaviour {
 	List<string> typeList;
 	public string type;
 	public int current = 0;
+	bool changeMotion = false;
 	// Use this for initialization
 	
 	void Start () 		
@@ -28,15 +29,57 @@ public class MovingPlatform : MonoBehaviour {
 	}
 	
 	
-	public void cycle()
+	public void cycle(int specific)
 	{		
-		if(current !=2)
+		if(specific == 0)
 		{
-			current ++;
+			if(current == 2)
+			{
+				changeMotion = true;
+				if(origX == transform.position.x)
+				{
+					current = 1;
+					type = "Horizontal";
+				}
+				else
+				{
+					current = 0;
+					type = "Vertical";
+				}
+			}
+			else if(current == 1)
+			{
+				changeMotion = true;
+				current = specific;
+			}
+
+		}
+		else if(specific == 1)
+		{
+			if(current == 2)
+			{
+				changeMotion = true;
+				if(origY == transform.position.y)
+				{
+					current = 0;
+					type = "Vertical";
+				}
+				else
+				{
+					current = 1;
+					type = "Horizontal";
+				}
+			}
+			else if(current == 0)
+			{
+				changeMotion = true;
+				current = specific;
+			}
 		}
 		else
 		{
-			current = 0;
+			current = 2;
+			type = "Frozen";
 		}
 		Debug.Log (typeList[current]);
 	}
@@ -45,13 +88,33 @@ public class MovingPlatform : MonoBehaviour {
 	void Update ()		
 	{
 		type = typeList[current];
+
+		if(origX - transform.position.x == 0 && origY - transform.position.y == 0)
+		{
+			if(changeMotion)
+			{
+				switch(current)
+				{
+					case 0:
+						type = "Vertical";
+						break;
+					case 1:
+						type = "Horizontal";
+						break;
+					default:
+						type = "Frozen";
+						break;
+				}
+			}
+		}
+
 		switch(type)
 		{
 			case "Vertical":
 				Vertical();
 				break;
 			case "Horizontal":
-				Horizontal();
+				Horizontal();			
 				break;
 			case "Freeze":
 				break;
