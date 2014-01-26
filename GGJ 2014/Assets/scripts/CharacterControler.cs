@@ -11,7 +11,7 @@ public class CharacterControler : MonoBehaviour {
 	//falling
 	public bool grounded = false;
 	public Transform groundCheck;
-	float groundRadius = 0.5f;
+	float groundRadius = 0.50f;
 	public LayerMask ground;
 
 	//jumping
