@@ -63,7 +63,7 @@ public class CharacterControler : MonoBehaviour {
 			rigidbody2D.AddForce(new Vector2(0, jumpForce));
 		}
 
-		if(transform.position.y < -50)
+		if(transform.position.y < -185)
 		{
 			transform.position = GameObject.Find("start").transform.position;
 		}
