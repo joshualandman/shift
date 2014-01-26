@@ -6,10 +6,10 @@ public class CharacterControler : MonoBehaviour {
 	public float maxSpeed = 10f;
 	bool facingRight = true;
 
-	Animator anim;
+	public Animator anim;
 
 	//falling
-	bool grounded = false;
+	public bool grounded = false;
 	public Transform groundCheck;
 	float groundRadius = 0.5f;
 	public LayerMask ground;
